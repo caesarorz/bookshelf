@@ -1,9 +1,8 @@
 import React from 'react';
 
-const BookList = props => {
+const Book = props => {
 
     const changeSelectHandle = e => {
-
         if(e.target.id === 'undefined' || e.target.shelf === 'undefined'){
             return
         }
@@ -16,11 +15,10 @@ const BookList = props => {
         }
     }
 
-    const { categories, bookslist } = props;
+    const { categories, book } = props;
 
-    const booksListRendered = bookslist.length > 0 ? (
-        bookslist.map(book => 
-            (<li key={book.id}>
+    return (
+            <li key={book.id}>
                 <div className="book">
                     <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${book.imageLinks && book.imageLinks.smallThumbnail !== 'undefined' ? book.imageLinks.smallThumbnail : ''}")` }}></div>
@@ -35,17 +33,9 @@ const BookList = props => {
                     <div className="book-title">{book.title}</div>
                     <div className="book-authors">{book.authors}</div>
                 </div>
-            </li>)
+            </li>
         )
-    ) : 'No books here!'
-
-    return (
-            <ol className="books-grid">
-                {booksListRendered}
-            </ol>
-        )
-    
 }
 
 
-export default BookList
+export default Book

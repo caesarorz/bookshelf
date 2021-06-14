@@ -11,34 +11,59 @@ class SearchBooks extends Component {
         searchBooks: []
     }
 
-    searchHandler = e => {
-        const query = e.target.value.trim()
+    cleanSearchBooks = () => {
+        this.setState(() => ({
+            searchBooks: []
+        })) 
+    }
+
+    cleanQuery = () => {
+        this.setState(() => ({
+            query: ''
+        })) 
+    }
+
+    updateQuery = q => {
+        const query = q.trim()
+        console.log('updateQuery ', query)
+        
+        if (query === 'undefined' || query === 'null' || query.length === 0) {
+            //console.log('updateQuery not valid: ', query)
+            this.cleanSearchBooks()
+            this.cleanQuery()
+            return
+        }
         if (query) {
-            BooksAPI.search(query)
-            .then((searchBooks) => {
-                if(!searchBooks.error) {
-                    this.setState(() => ({
-                        searchBooks
-                    }))
-                } else {
-                    this.setState(() => ({
-                        searchBooks: []
-                    }))     
-                }
-          })
-        } else {
             this.setState(() => ({
-                searchBooks: []
-            })) 
+                query: query
+            }))
+            this.searchedBooks(query)
         }
     }
 
-    render() {
-        const { books, categories } = this.props
-        const renderBooks = []
+    searchedBooks = (q) => {
+        this.cleanSearchBooks()
+        BooksAPI.search(q)
+            .then((searchBooks) => {
+                if(searchBooks && searchBooks.error) {
+                    this.updateQuery('')
+                    return
+                }
+                this.setState(() => ({
+                    searchBooks
+            })) 
+        })
+      }
 
-        if (this.state.searchBooks.length > 0) {
-            this.state.searchBooks.forEach(book => {
+    render() {
+        const renderBooks = []
+        const { books, categories } = this.props
+        const { query, searchBooks } = this.state
+        
+        const checkBooksExists = (searchBooks && searchBooks.length > 0) || false
+
+        if (checkBooksExists) {
+            searchBooks.forEach(book => {
                 const filteredBook = books.find(_book => _book.id === book.id)
                 if (filteredBook) {
                     renderBooks.push(filteredBook)
@@ -47,6 +72,15 @@ class SearchBooks extends Component {
                 }
             })
         }
+
+        console.log("query   ", query, typeof query, query.length, checkBooksExists)
+
+        const listOfBooks = checkBooksExists || query === '' ? (
+            <BookList 
+                categories={categories} 
+                bookslist={renderBooks} 
+                changeBookShelf={this.props.changeBookShelf} />
+        ) : (<ol className="books-grid">No books with searched criteria</ol>)
 
         return (
             <div className="search-books">
@@ -61,14 +95,12 @@ class SearchBooks extends Component {
                     However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                     you don't find a specific author or title. Every search is limited by search terms.
                     */}
-                    <input type="text" placeholder="Search by title or author" onChange={this.searchHandler}/>
+                    <input type="text" placeholder="Search by title or author" onChange={(event) => this.updateQuery((event.target.value))}/>
 
                 </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid">
-                        <BookList categories={categories} testbooks={renderBooks} changeBookShelf={this.props.changeBookShelf} />
-                    </ol>
+                    {listOfBooks}
                 </div>
             </div>
         )
@@ -76,3 +108,50 @@ class SearchBooks extends Component {
 }
 
 export default SearchBooks
+
+
+    // searchHandler = e => {
+    //     const query = e.target.value.trim()
+    //     if (query) {
+    //         BooksAPI.search(query)
+    //         .then((searchBooks) => {
+    //             if(!searchBooks.error) {
+    //                 this.setState(() => ({
+    //                     searchBooks
+    //                 }))
+    //             } else {
+    //                 this.setState(() => ({
+    //                     searchBooks: []
+    //                 }))     
+    //             }
+    //       })
+    //     } else {
+    //         this.setState(() => ({
+    //             searchBooks: []
+    //         })) 
+    //     }
+    // }
+
+        // queryHandler = e => {
+    //     const query = e.target.value
+    //     console.log("queryHandler ", query)
+    //     if (query.trim() === 'undefined' || query.trim() === 'null') {
+    //         this.setState(() => ({
+    //             searchBooks: []
+    //         })) 
+    //         this.setState(() => ({
+    //             query: ''
+    //         })) 
+    //     }
+
+    //     BooksAPI.search(query)
+    //         .then((searchBooks) => {
+    //             this.setState(() => ({
+    //                 searchBooks
+    //             })) 
+    //     })
+    //     this.setState((query) => ({
+    //         query
+    //     })) 
+    // }
+ 

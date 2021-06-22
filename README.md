@@ -1,7 +1,7 @@
 # MyReads Project
 
 This is a digital bookshelf, where the readings are divided in 3 main categories: **Currently Reading**,  **Want to read** and  **Read**. Also **none** is present although is not a categorization. 
-Books belongs to a single bookshelf (category), and that category can be visualized, modified or changed by using the _select_ option for every book. The round-green button at the bottom the of the website leads to the **Search** section of the site. Inside th search section an input is used to type any searched criteria and visualize any amount of books (if any). As before, the _selector_ in every book is given, so visualization, modification of category or remove a book from a given category is also possible.  
+Books belong to a single bookshelf (category), and that category can be visualized, modified or changed by using the _select_ option for every book. The round-green button at the bottom the of the website leads to the **Search** section of the site. Inside th search section an input is used to type any searched criteria and visualize any amount of books (if any). As before, the _selector_ in every book is given, so visualization, modification of category or remove a book from a given category is also possible. Any change in the **Search** section is reflected in the main site (where all categories or bookshelf is). 
 
 ## Instructions
 
@@ -17,12 +17,13 @@ Books belongs to a single bookshelf (category), and that category can be visuali
 * Every single book has a selector (green button) where:
   1. Visualize the category the book is in.
   2. Change the category.
-  3. Remove the book from any category (**none** option)
+  3. Remove the book from any category (**none** option).
 * At the bottom of the page there is a green circle with an add symbol. That button leads to a **Search** section. 
-  1. The _input_ present is used to type any criteria and render an amount of books if any. 
+  1. The _input_ present is used to type any searched criteria and render an amount of books if any. 
   2. As before, visualization, change or remove a book is possible using the _select_.
   3. The arrow in the input take the page back to the book's categories. 
 
+Note: For search criteria use the ´SEARCH_TERMS.md´.
 
 ## License
 The content of this repository is licensed under a Creative Commons Attribution License

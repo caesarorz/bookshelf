@@ -8,8 +8,8 @@ Books belong to a single bookshelf (category), and that category can be visualiz
 ### To run the project locally please
 
 1. Copy the entire workspace without the node_modules or clone the repository.
-2. Execute in the CLI: ´cd workspace´ run ´npm install´.
-3. To run it, simply ´yarn start´ or ´npm start´.
+2. Execute in the CLI: `cd workspace` run `npm install`.
+3. To run it, simply `yarn start` or `npm start`.
 
 ### Usage
 
@@ -23,7 +23,7 @@ Books belong to a single bookshelf (category), and that category can be visualiz
   2. As before, visualization, change or remove a book is possible using the _select_.
   3. The arrow in the input take the page back to the book's categories. 
 
-Note: For search criteria use the ´SEARCH_TERMS.md´.
+Note: For search criteria use the `SEARCH_TERMS.md`.
 
 ## License
 The content of this repository is licensed under a Creative Commons Attribution License

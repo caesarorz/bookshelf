@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Debounce } from 'react-throttle'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 import * as BooksAPI from './utils/BooksAPI'
 
 import BookList from './BookList'
@@ -25,10 +27,8 @@ class SearchBooks extends Component {
 
     updateQuery = q => {
         const query = q.trim()
-        console.log('updateQuery ', query)
         
-        if (query === 'undefined' || query === 'null' || query.length === 0) {
-            //console.log('updateQuery not valid: ', query)
+        if (query === 'undefined' || query === 'null' || query.length === 0 || query.length === '') {
             this.cleanSearchBooks()
             this.cleanQuery()
             return
@@ -41,7 +41,7 @@ class SearchBooks extends Component {
         }
     }
 
-    searchedBooks = (q) => {
+    searchedBooks = q => {
         this.cleanSearchBooks()
         BooksAPI.search(q)
             .then((searchBooks) => {
@@ -73,14 +73,13 @@ class SearchBooks extends Component {
             })
         }
 
-        console.log("query   ", query, typeof query, query.length, checkBooksExists)
-
         const listOfBooks = checkBooksExists || query === '' ? (
             <BookList 
                 categories={categories} 
                 bookslist={renderBooks} 
                 changeBookShelf={this.props.changeBookShelf} />
-        ) : (<ol className="books-grid">No books with searched criteria</ol>)
+        ) : 
+            (<ol className="books-grid">No books with searched criteria</ol>)
 
         return (
             <div className="search-books">
@@ -95,7 +94,9 @@ class SearchBooks extends Component {
                     However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                     you don't find a specific author or title. Every search is limited by search terms.
                     */}
-                    <input type="text" placeholder="Search by title or author" onChange={(event) => this.updateQuery((event.target.value))}/>
+                    <Debounce time="400" handler="onChange">
+                        <input type="text" placeholder="Search by title or author" onChange={(event) => this.updateQuery((event.target.value))}/>
+                    </Debounce>
 
                 </div>
                 </div>
@@ -107,51 +108,11 @@ class SearchBooks extends Component {
     }
 }
 
+SearchBooks.propTypes = {
+    categories: PropTypes.array.isRequired,
+    books: PropTypes.array.isRequired,
+    changeBookShelf: PropTypes.func.isRequired
+}
+
 export default SearchBooks
-
-
-    // searchHandler = e => {
-    //     const query = e.target.value.trim()
-    //     if (query) {
-    //         BooksAPI.search(query)
-    //         .then((searchBooks) => {
-    //             if(!searchBooks.error) {
-    //                 this.setState(() => ({
-    //                     searchBooks
-    //                 }))
-    //             } else {
-    //                 this.setState(() => ({
-    //                     searchBooks: []
-    //                 }))     
-    //             }
-    //       })
-    //     } else {
-    //         this.setState(() => ({
-    //             searchBooks: []
-    //         })) 
-    //     }
-    // }
-
-        // queryHandler = e => {
-    //     const query = e.target.value
-    //     console.log("queryHandler ", query)
-    //     if (query.trim() === 'undefined' || query.trim() === 'null') {
-    //         this.setState(() => ({
-    //             searchBooks: []
-    //         })) 
-    //         this.setState(() => ({
-    //             query: ''
-    //         })) 
-    //     }
-
-    //     BooksAPI.search(query)
-    //         .then((searchBooks) => {
-    //             this.setState(() => ({
-    //                 searchBooks
-    //             })) 
-    //     })
-    //     this.setState((query) => ({
-    //         query
-    //     })) 
-    // }
  

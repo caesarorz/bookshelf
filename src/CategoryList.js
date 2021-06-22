@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import BookList from './BookList'
 
 const CategoryList = props => {
 
         const bookshelf = {
-            ['currentlyReading']: { id: 'currentlyReading', title: 'Currently Reading', books: [] },
-            ['wantToRead'] : { id: 'wantToRead', title: 'Want to Read', books: [] },
-            ['read'] : { id: 'read', title: 'Read', books: [] }
+            currentlyReading: { id: 'currentlyReading', title: 'Currently Reading', books: [] },
+            wantToRead : { id: 'wantToRead', title: 'Want to Read', books: [] },
+            read : { id: 'read', title: 'Read', books: [] }
         }
         const { books, categories } = props;
         books.forEach(book => {
@@ -18,7 +19,7 @@ const CategoryList = props => {
                 bookshelf[book.shelf].books.push(book)
             }
         })
-        
+
         return (
             <div className="list-books-content">
               <div>
@@ -27,7 +28,10 @@ const CategoryList = props => {
                         (<div key={category.id}>
                             <h2 className="bookshelf-title" key={category.id}>{category.title}</h2>
                             <div className="bookshelf-books">
-                                <BookList categories={categories} bookslist={category.books} changeBookShelf={props.changeBookShelf}/>
+                                <BookList 
+                                    categories={categories} 
+                                    bookslist={category.books} 
+                                    changeBookShelf={props.changeBookShelf}/>
                              </div>
                         </div>)
                     )}
@@ -35,8 +39,12 @@ const CategoryList = props => {
               </div>
             </div>
         )
-
 }
 
+CategoryList.propTypes = {
+    categories: PropTypes.array.isRequired,
+    books: PropTypes.array.isRequired,
+    changeBookShelf: PropTypes.func.isRequired
+}
 
 export default CategoryList

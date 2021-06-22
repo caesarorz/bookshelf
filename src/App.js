@@ -1,8 +1,7 @@
 import React from 'react'
-import * as BooksAPI from './utils/BooksAPI'
+import { Route, Link } from 'react-router-dom'
 import './App.css'
-import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import * as BooksAPI from './utils/BooksAPI'
 
 import CategoryList from './CategoryList'
 import SearchBooks from './SearchBooks'
@@ -65,5 +64,6 @@ class BooksApp extends React.Component {
     )
   }
 }
+
 
 export default BooksApp

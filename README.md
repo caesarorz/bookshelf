@@ -1,5 +1,37 @@
 # MyReads Project
 
+This is a digital bookshelf, where the readings are divided in 3 main categories: **Currently Reading**,  **Want to read** and  **Read**. Also **none** is present although is not a categorization. 
+Books belongs to a single bookshelf (category), and that category can be visualized, modified or changed by using the _select_ option for every book. The round-green button at the bottom the of the website leads to the **Search** section of the site. Inside th search section an input is used to type any searched criteria and visualize any amount of books (if any). As before, the _selector_ in every book is given, so visualization, modification of category or remove a book from a given category is also possible.  
+
+## Instructions
+
+### To run the project locally please
+
+1. Copy the entire workspace without the node_modules or clone the repository.
+2. Execute in the CLI: ´cd workspace´ run ´npm install´.
+3. To run it, simply ´yarn start´ or ´npm start´.
+
+### Usage
+
+* Starting page: Group of books categorize in **Currently Reading**,  **Want to read** and  **Read**. 
+* Every single book has a selector (green button) where:
+  1. Visualize the category the book is in.
+  2. Change the category.
+  3. Remove the book from any category (**none** option)
+* At the bottom of the page there is a green circle with an add symbol. That button leads to a **Search** section. 
+  1. The _input_ present is used to type any criteria and render an amount of books if any. 
+  2. As before, visualization, change or remove a book is possible using the _select_.
+  3. The arrow in the input take the page back to the book's categories. 
+
+
+## License
+The content of this repository is licensed under a Creative Commons Attribution License
+
+
+
+
+# MyReads Project
+
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
